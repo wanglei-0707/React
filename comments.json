@@ -2,7 +2,7 @@
     {
         "id": 1388534400000,
         "author": "Pete Hunt",
-        "text": "Hey there!"
+        "text": "Hey there hahahah!"
     },
     {
         "id": 1420070400000,
@@ -23,5 +23,15 @@
         "id": 1464988717637,
         "author": "evil",
         "text": "<a href=\"javascript:alert(1)\">alert(1)</a>"
+    },
+    {
+        "id": 1464988717638,
+        "author": "evil",
+        "text": "<a href=\"javascript:alert(1)\">alert(1)</a>"
+    },
+    {
+        "id": 1492437833813,
+        "author": "wl",
+        "text": "hahaha"
     }
 ]
