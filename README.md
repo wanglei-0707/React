@@ -1,6 +1,5 @@
 # React
 
-
 1. ReactDOM.render(): 用于将模板转为HTML语言，并插入指定DOM节点。ReactDOM.render()应该只在复合组件被定义之后被调用。
 ```
 ReactDOM.render(
@@ -16,7 +15,7 @@ ReactDOM.render(
     2. 给组件类命名时第一个字母必须大写，否则没有效果(*原文说会报错，我试了下，并没有报错，只是没有效果*)。
     3. 组件类只能包含一个顶层标签，否则会报错，这一点同vue2.0。
     4. 使用组件类时，在模板中插入`<ComponentName propName="propValue"/>`(必须有'/'，否则报错)或者`<ComponentName propName="propValue"></ComponentName>`，会自动生成相应组件类的一个实例。
-    5. 使用组件时可以添加任意属性，组件的属性在组件类中通过this.props对象获取。使用class属性时需写成className，使用for属性时需写成htmlFor，这是因为class和for是JavaScript的保留字(*我试着用class和for，可是可以正常获取的啊......这个问题待学习一段时间再验证吧*)
+    5. 使用组件时可以添加任意属性，组件的属性在组件类中通过this.props对象获取。使用class属性时需写成className，使用for属性时需写成htmlFor，这是因为class和for是JavaScript的保留字
     ```
     var HelloMessage = React.createClass({
         render: function(){
@@ -119,12 +118,12 @@ ReactDOM.render(
     ```
     12. 生命周期：组件的生命周期分为三个状态：Mounting 已插入真实DOM， Updating 正在被重新渲染， Unmounting 已移除正式DOM。每个状态有两种处理函数，will函数在进入状态之前调用，did函数在进入状态之后调用。三种状态共计5种处理函数, React还提供了两种特殊状态的处理函数：
         1. componentWillMount()
-        2. componentDidMount()
-        3. componentWillUpdate(object nextProps, object nextState)
+        2. componentDidMount() //需要DOM node的初始化应该放在这里
+        3. componentWillUpdate(object nextProps, object nextState) // 在此不能调用this.setState()
         4. componentDidUpdate(object nextProps, object nextState)
         5. componentWillUnmount()
-        6. componentWillReceiveProps(object nextProps) // 已加载组件收到新的参数时调用
-        7. shouldComponentUpdate(object nextProps, object nextState) // 组件判断是否重新渲染时调用
+        6. componentWillReceiveProps(object nextProps) // 当挂在的组件接收到新的props时被调用。应该被用于比较this.props和nextProps以用于使用this.setState()执行状态转换。
+        7. shouldComponentUpdate(object nextProps, object nextState) // 组件决定任何改变是否要更新到DOM时被调用，如果应该跳过更新，返回false。
     13. 当需要从子组件向父组件传递数据时，可以在父组件的render函数中使用子组件时绑定一个自定义事件，然后在子组件中触发事件时将数据作为参数传过来
     ```
     //父组件
@@ -163,6 +162,10 @@ ReactDOM.render(
         }
     });
     ```
+    14. props VS state: state主要用来实现UI交互，props是从父组件向子组件传递数据。当我们决定一个数据是不是应该使用state时，可以根据以下三条原则来决定：
+        * 它是通过props从一个父组件传递过来的吗？如果是，不应该设置成state
+        * 它是一只不改变的吗？如果是，不应该设置成state
+        * 它可以通过其他的props或者state计算出来吗？如果是，不应该设置成state
 4. 第三方库remarkable，一个纯JavaScript的markdown解析器。使用前需先引入库文件
 ```
 var Comment = React.createClass({
