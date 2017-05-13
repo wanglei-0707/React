@@ -124,6 +124,7 @@ ReactDOM.render(
         5. componentWillUnmount()
         6. componentWillReceiveProps(object nextProps) // 当挂在的组件接收到新的props时被调用。应该被用于比较this.props和nextProps以用于使用this.setState()执行状态转换。
         7. shouldComponentUpdate(object nextProps, object nextState) // 组件决定任何改变是否要更新到DOM时被调用，如果应该跳过更新，返回false。
+        ![生命周期](public/imgs/lifecycle.png)
     13. 当需要从子组件向父组件传递数据时，可以在父组件的render函数中使用子组件时绑定一个自定义事件，然后在子组件中触发事件时将数据作为参数传过来
     ```
     //父组件
@@ -204,4 +205,20 @@ var Comment = React.createClass({
         );
     }
 });
+```
+5. 使用ES6 class语法定义组件时，在组件内使用static defaultProps定义默认props，会报错。原因是static定义的静态属性不属于ES6，而是在ES7的草案中，需要安装babel-preset-stage-0，并且在presets设置中添加"stage-0"。
+```
+// 在webpack.config.js中配置
+{
+    test: /\.js$/,
+    exclude: /node_modules/,
+    loader: 'babel-loader',
+    query: {
+        presets: ['es2015', 'react', 'stage-0']
+    }
+}
+// 在.babelrc文件中配置
+{
+    "presets": ["es2015", "react", "stage-0"]
+}
 ```
